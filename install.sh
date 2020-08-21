@@ -13,7 +13,7 @@ _magenta() { echo -e ${magenta}$*${none}; }
 _cyan() { echo -e ${cyan}$*${none}; }
 
 # Root
-[[ $(id -u) != 0 ]] && echo -e "\n 哎呀……请使用 ${red}root ${none}用户运行 ${yellow}~(^_^) ${none}\n" && exit 1
+[[ $(id -u) != 0 ]] && echo -e "\n Oops... please run as ${red}root ${none}user ${yellow}~(^_^) ${none}\n" && exit 1
 
 cmd="apt-get"
 
@@ -42,9 +42,9 @@ x86_64)
 	;;
 *)
 	echo -e " 
-	哈哈……这个 ${red}辣鸡脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
+	Haha……this ${red}spicy chicken script${none} does not support your system. ${yellow}(-_-) ${none}
 
-	备注: 仅支持 Ubuntu 16+ / Debian 8+ / CentOS 7+ 系统
+	Note: Only support Ubuntu 16+ / Debian 8+ / CentOS 7+ system
 	" && exit 1
 	;;
 esac
@@ -61,9 +61,9 @@ if [[ $(command -v apt-get) || $(command -v yum) ]] && [[ $(command -v systemctl
 else
 
 	echo -e " 
-	哈哈……这个 ${red}辣鸡脚本${none} 不支持你的系统。 ${yellow}(-_-) ${none}
+	Haha……this ${red}spicy chicken script${none} does not support your system. ${yellow}(-_-) ${none}
 
-	备注: 仅支持 Ubuntu 16+ / Debian 8+ / CentOS 7+ 系统
+	Note: Only support Ubuntu 16+ / Debian 8+ / CentOS 7+ system
 	" && exit 1
 
 fi
@@ -135,19 +135,19 @@ _sys_timezone() {
 	echo
 	timedatectl set-timezone Asia/Shanghai
 	timedatectl set-ntp true
-	echo "已将你的主机设置为Asia/Shanghai时区并通过systemd-timesyncd自动同步时间。"
+	echo "You have set your host to the Asia/Shanghai time zone and automatically synchronize the time through systemd-timesyncd."
 	echo
 
 	if [[ $IS_OPENVZ ]]; then
 		echo
-		echo -e "你的主机环境为 ${yellow}Openvz${none} ，建议使用${yellow}v2ray mkcp${none}系列协议。"
-		echo -e "注意：${yellow}Openvz${none} 系统时间无法由虚拟机内程序控制同步。"
-		echo -e "如果主机时间跟实际相差${yellow}超过90秒${none}，v2ray将无法正常通信，请发ticket联系vps主机商调整。"
+		echo -e "Your host environment is ${yellow}Openvz${none} ，it is recommended to use the${yellow}v2ray mkcp${none}series of protocols."
+		echo -e "Note：${yellow}Openvz${none} system time cannot be synchronized by the program in the virtual machine."
+		echo -e "If the host time differs from the actual time by more than 90 seconds${none}，v2ray will not be able to communicate normally. Please send a ticket to contact the vps host for adjustment."
 	fi
 }
 
 _sys_time() {
-	echo -e "\n主机时间：${yellow}"
+	echo -e "\nHost time：${yellow}"
 	timedatectl status | sed -n '1p;4p'
 	echo -e "${none}"
 	[[ $IS_OPENV ]] && pause
@@ -156,7 +156,7 @@ v2ray_config() {
 	# clear
 	echo
 	while :; do
-		echo -e "请选择 "$yellow"V2Ray"$none" 传输协议 [${magenta}1-${#transport[*]}$none]"
+		echo -e "Please select "$yellow"V2Ray"$none" transmission protocol [${magenta}1-${#transport[*]}$none]"
 		echo
 		for ((i = 1; i <= ${#transport[*]}; i++)); do
 			Stream="${transport[$i - 1]}"
@@ -169,16 +169,16 @@ v2ray_config() {
 			fi
 		done
 		echo
-		echo "备注1: 含有 [dynamicPort] 的即启用动态端口.."
-		echo "备注2: [utp | srtp | wechat-video | dtls | wireguard] 分别伪装成 [BT下载 | 视频通话 | 微信视频通话 | DTLS 1.2 数据包 | WireGuard 数据包]"
+		echo "Note1: Contains [dynamicPort] to enable dynamic port.."
+		echo "Note2: [utp | srtp | wechat-video | dtls | wireguard] Disguised as [BTdownload | video call | WeChat video call | DTLS 1.2 packet | WireGuard packet]"
 		echo
-		read -p "$(echo -e "(默认协议: ${cyan}TCP$none)"):" v2ray_transport
+		read -p "$(echo -e "(Default protocol: ${cyan}TCP$none)"):" v2ray_transport
 		[ -z "$v2ray_transport" ] && v2ray_transport=1
 		case $v2ray_transport in
 		[1-9] | [1-2][0-9] | 3[0-2])
 			echo
 			echo
-			echo -e "$yellow V2Ray 传输协议 = $cyan${transport[$v2ray_transport - 1]}$none"
+			echo -e "$yellow V2Ray Transfer Protocol = $cyan${transport[$v2ray_transport - 1]}$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -198,14 +198,14 @@ v2ray_port_config() {
 	*)
 		local random=$(shuf -i20001-65535 -n1)
 		while :; do
-			echo -e "请输入 "$yellow"V2Ray"$none" 端口 ["$magenta"1-65535"$none"]"
-			read -p "$(echo -e "(默认端口: ${cyan}${random}$none):")" v2ray_port
+			echo -e "Please enter "$yellow"V2Ray"$none" port ["$magenta"1-65535"$none"]"
+			read -p "$(echo -e "(Default port: ${cyan}${random}$none):")" v2ray_port
 			[ -z "$v2ray_port" ] && v2ray_port=$random
 			case $v2ray_port in
 			[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
 				echo
 				echo
-				echo -e "$yellow V2Ray 端口 = $cyan$v2ray_port$none"
+				echo -e "$yellow V2Ray Port = $cyan$v2ray_port$none"
 				echo "----------------------------------------------------------------"
 				echo
 				break
@@ -225,21 +225,21 @@ v2ray_port_config() {
 v2ray_dynamic_port_start() {
 
 	while :; do
-		echo -e "请输入 "$yellow"V2Ray 动态端口开始 "$none"范围 ["$magenta"1-65535"$none"]"
-		read -p "$(echo -e "(默认开始端口: ${cyan}10000$none):")" v2ray_dynamic_port_start_input
+		echo -e "Please enter "$yellow"V2Ray Dynamic port starts with "$none"range ["$magenta"1-65535"$none"]"
+		read -p "$(echo -e "(Default start port: ${cyan}10000$none):")" v2ray_dynamic_port_start_input
 		[ -z $v2ray_dynamic_port_start_input ] && v2ray_dynamic_port_start_input=10000
 		case $v2ray_dynamic_port_start_input in
 		$v2ray_port)
 			echo
-			echo " 不能和 V2Ray 端口一毛一样...."
+			echo " It can't be the same as the V2Ray port...."
 			echo
-			echo -e " 当前 V2Ray 端口：${cyan}$v2ray_port${none}"
+			echo -e " Current V2Ray port：${cyan}$v2ray_port${none}"
 			error
 			;;
 		[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
 			echo
 			echo
-			echo -e "$yellow V2Ray 动态端口开始 = $cyan$v2ray_dynamic_port_start_input$none"
+			echo -e "$yellow V2Ray Dynamic port start = $cyan$v2ray_dynamic_port_start_input$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -260,28 +260,28 @@ v2ray_dynamic_port_start() {
 v2ray_dynamic_port_end() {
 
 	while :; do
-		echo -e "请输入 "$yellow"V2Ray 动态端口结束 "$none"范围 ["$magenta"1-65535"$none"]"
-		read -p "$(echo -e "(默认结束端口: ${cyan}20000$none):")" v2ray_dynamic_port_end_input
+		echo -e "Please enter "$yellow"V2Ray Dynamic port ends "$none"range ["$magenta"1-65535"$none"]"
+		read -p "$(echo -e "(Default end port: ${cyan}20000$none):")" v2ray_dynamic_port_end_input
 		[ -z $v2ray_dynamic_port_end_input ] && v2ray_dynamic_port_end_input=20000
 		case $v2ray_dynamic_port_end_input in
 		[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
 
 			if [[ $v2ray_dynamic_port_end_input -le $v2ray_dynamic_port_start_input ]]; then
 				echo
-				echo " 不能小于或等于 V2Ray 动态端口开始范围"
+				echo " Must not be less than or equal to the start range of the V2Ray dynamic port"
 				echo
-				echo -e " 当前 V2Ray 动态端口开始：${cyan}$v2ray_dynamic_port_start_input${none}"
+				echo -e " The current V2Ray dynamic port starts：${cyan}$v2ray_dynamic_port_start_input${none}"
 				error
 			elif [ $lt_v2ray_port ] && [[ ${v2ray_dynamic_port_end_input} -ge $v2ray_port ]]; then
 				echo
-				echo " V2Ray 动态端口结束范围 不能包括 V2Ray 端口..."
+				echo " V2Ray dynamic port end range cannot include V2Ray port..."
 				echo
-				echo -e " 当前 V2Ray 端口：${cyan}$v2ray_port${none}"
+				echo -e " Current V2Ray port：${cyan}$v2ray_port${none}"
 				error
 			else
 				echo
 				echo
-				echo -e "$yellow V2Ray 动态端口结束 = $cyan$v2ray_dynamic_port_end_input$none"
+				echo -e "$yellow V2Ray Dynamic port end = $cyan$v2ray_dynamic_port_end_input$none"
 				echo "----------------------------------------------------------------"
 				echo
 				break
@@ -301,24 +301,24 @@ tls_config() {
 	echo
 	local random=$(shuf -i20001-65535 -n1)
 	while :; do
-		echo -e "请输入 "$yellow"V2Ray"$none" 端口 ["$magenta"1-65535"$none"]，不能选择 "$magenta"80"$none" 或 "$magenta"443"$none" 端口"
-		read -p "$(echo -e "(默认端口: ${cyan}${random}$none):")" v2ray_port
+		echo -e "Please enter "$yellow"V2Ray"$none" Port ["$magenta"1-65535"$none"]，Can't choose "$magenta"80"$none" or "$magenta"443"$none" port"
+		read -p "$(echo -e "(Default port: ${cyan}${random}$none):")" v2ray_port
 		[ -z "$v2ray_port" ] && v2ray_port=$random
 		case $v2ray_port in
 		80)
 			echo
-			echo " ...都说了不能选择 80 端口了咯....."
+			echo " ...I said that I can’t choose port 80....."
 			error
 			;;
 		443)
 			echo
-			echo " ..都说了不能选择 443 端口了咯....."
+			echo " ...I said that I can’t choose port 443....."
 			error
 			;;
 		[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
 			echo
 			echo
-			echo -e "$yellow V2Ray 端口 = $cyan$v2ray_port$none"
+			echo -e "$yellow V2Ray Port = $cyan$v2ray_port$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -331,29 +331,29 @@ tls_config() {
 
 	while :; do
 		echo
-		echo -e "请输入一个 $magenta正确的域名$none，一定一定一定要正确，不！能！出！错！"
-		read -p "(例如：233blog.com): " domain
+		echo -e "Please enter a $magentahe correct domain name $none，It must be correct, no! can! Out! wrong!"
+		read -p "(E.g：domain.com): " domain
 		[ -z "$domain" ] && error && continue
 		echo
 		echo
-		echo -e "$yellow 你的域名 = $cyan$domain$none"
+		echo -e "$yellow Your domain name = $cyan$domain$none"
 		echo "----------------------------------------------------------------"
 		break
 	done
 	get_ip
 	echo
 	echo
-	echo -e "$yellow 请将 $magenta$domain$none $yellow解析到: $cyan$ip$none"
+	echo -e "$yellow Please add $magenta$domain$none $yellowResolve to: $cyan$ip$none"
 	echo
-	echo -e "$yellow 请将 $magenta$domain$none $yellow解析到: $cyan$ip$none"
+	echo -e "$yellow Please add $magenta$domain$none $yellowResolve to: $cyan$ip$none"
 	echo
-	echo -e "$yellow 请将 $magenta$domain$none $yellow解析到: $cyan$ip$none"
+	echo -e "$yellow Please add $magenta$domain$none $yellowResolve to: $cyan$ip$none"
 	echo "----------------------------------------------------------------"
 	echo
 
 	while :; do
 
-		read -p "$(echo -e "(是否已经正确解析: [${magenta}Y$none]):") " record
+		read -p "$(echo -e "(Has it been parsed correctly: [${magenta}Y$none]):") " record
 		if [[ -z "$record" ]]; then
 			error
 		else
@@ -361,7 +361,7 @@ tls_config() {
 				domain_check
 				echo
 				echo
-				echo -e "$yellow 域名解析 = ${cyan}我确定已经有解析了$none"
+				echo -e "$yellow DNS = ${cyan}I'm sure there is an analysis$none"
 				echo "----------------------------------------------------------------"
 				echo
 				break
@@ -386,20 +386,20 @@ tls_config() {
 auto_tls_config() {
 	echo -e "
 
-		安装 Caddy 来实现 自动配置 TLS
+		Install Caddy to automatically configure TLS
 		
-		如果你已经安装 Nginx 或 Caddy
+		If you have installed Nginx or Caddy
 
-		$yellow并且..自己能搞定配置 TLS$none
+		$yellowand...you can configure TLS$none
 
-		那么就不需要 打开自动配置 TLS
+		Then there is no need to turn on automatic configuration TLS
 		"
 	echo "----------------------------------------------------------------"
 	echo
 
 	while :; do
 
-		read -p "$(echo -e "(是否自动配置 TLS: [${magenta}Y/N$none]):") " auto_install_caddy
+		read -p "$(echo -e "(Whether to configure TLS automatically: [${magenta}Y/N$none]):") " auto_install_caddy
 		if [[ -z "$auto_install_caddy" ]]; then
 			error
 		else
@@ -408,7 +408,7 @@ auto_tls_config() {
 				install_caddy_info="打开"
 				echo
 				echo
-				echo -e "$yellow 自动配置 TLS = $cyan$install_caddy_info$none"
+				echo -e "$yellow Configure TLS automatically = $cyan$install_caddy_info$none"
 				echo "----------------------------------------------------------------"
 				echo
 				break
@@ -416,7 +416,7 @@ auto_tls_config() {
 				install_caddy_info="关闭"
 				echo
 				echo
-				echo -e "$yellow 自动配置 TLS = $cyan$install_caddy_info$none"
+				echo -e "$yellow Configure TLS automatically = $cyan$install_caddy_info$none"
 				echo "----------------------------------------------------------------"
 				echo
 				break
@@ -430,8 +430,8 @@ auto_tls_config() {
 path_config_ask() {
 	echo
 	while :; do
-		echo -e "是否开启 网站伪装 和 路径分流 [${magenta}Y/N$none]"
-		read -p "$(echo -e "(默认: [${cyan}N$none]):")" path_ask
+		echo -e "Whether to enable website camouflage and path diversion [${magenta}Y/N$none]"
+		read -p "$(echo -e "(default: [${cyan}N$none]):")" path_ask
 		[[ -z $path_ask ]] && path_ask="n"
 
 		case $path_ask in
@@ -442,7 +442,7 @@ path_config_ask() {
 		N | n)
 			echo
 			echo
-			echo -e "$yellow 网站伪装 和 路径分流 = $cyan不想配置$none"
+			echo -e "$yellow Website camouflage and path diversion = $cyandoes not want to configure$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -456,21 +456,21 @@ path_config_ask() {
 path_config() {
 	echo
 	while :; do
-		echo -e "请输入想要 ${magenta}用来分流的路径$none , 例如 /233blog , 那么只需要输入 233blog 即可"
-		read -p "$(echo -e "(默认: [${cyan}233blog$none]):")" path
+		echo -e "Please enter the path ${magenta}that you want $none , For example /v2ray"
+		read -p "$(echo -e "(default: [${cyan}233blog$none]):")" path
 		[[ -z $path ]] && path="233blog"
 
 		case $path in
 		*[/$]*)
 			echo
-			echo -e " 由于这个脚本太辣鸡了..所以分流的路径不能包含$red / $none或$red $ $none这两个符号.... "
+			echo -e " Because this script is too spicy...so the path of the diversion cannot contain the two symbols$red / $none or$red $ $none These two symbols.... "
 			echo
 			error
 			;;
 		*)
 			echo
 			echo
-			echo -e "$yellow 分流的路径 = ${cyan}/${path}$none"
+			echo -e "$yellow Diverging path = ${cyan}/${path}$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -483,25 +483,25 @@ path_config() {
 proxy_site_config() {
 	echo
 	while :; do
-		echo -e "请输入 ${magenta}一个正确的$none ${cyan}网址$none 用来作为 ${cyan}网站的伪装$none , 例如 https://liyafly.com"
-		echo -e "举例...你当前的域名是 $green$domain$none , 伪装的网址的是 https://liyafly.com"
-		echo -e "然后打开你的域名时候...显示出来的内容就是来自 https://liyafly.com 的内容"
-		echo -e "其实就是一个反代...明白就好..."
-		echo -e "如果不能伪装成功...可以使用 v2ray config 修改伪装的网址"
-		read -p "$(echo -e "(默认: [${cyan}https://liyafly.com$none]):")" proxy_site
+		echo -e "Please enter ${magenta}a correct$none ${cyan}URL$none is used as ${cyan}the disguise of the website$none , such as https://liyafly.com"
+		echo -e "For example... your current domain name is $green$domain$none , and the disguised URL is https://liyafly.com"
+		echo -e "Then when you open your domain name... the content displayed is the content from https://liyafly.com"
+		echo -e "In fact, it is an anti-generation... Just understand..."
+		echo -e "If the disguise is not successful...you can use v2ray config to modify the disguised URL"
+		read -p "$(echo -e "(default: [${cyan}https://liyafly.com$none]):")" proxy_site
 		[[ -z $proxy_site ]] && proxy_site="https://liyafly.com"
 
 		case $proxy_site in
 		*[#$]*)
 			echo
-			echo -e " 由于这个脚本太辣鸡了..所以伪装的网址不能包含$red # $none或$red $ $none这两个符号.... "
+			echo -e " Because this script is too spicy...so the disguised URL cannot contain $red # $noneor$red $ $none These two symbols.... "
 			echo
 			error
 			;;
 		*)
 			echo
 			echo
-			echo -e "$yellow 伪装的网址 = ${cyan}${proxy_site}$none"
+			echo -e "$yellow Disguised URL = ${cyan}${proxy_site}$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -513,26 +513,26 @@ proxy_site_config() {
 blocked_hosts() {
 	echo
 	while :; do
-		echo -e "是否开启广告拦截(会影响性能) [${magenta}Y/N$none]"
-		read -p "$(echo -e "(默认 [${cyan}N$none]):")" blocked_ad
+		echo -e "Whether to turn on ad blocking (will affect performance) [${magenta}Y/N$none]"
+		read -p "$(echo -e "(default [${cyan}N$none]):")" blocked_ad
 		[[ -z $blocked_ad ]] && blocked_ad="n"
 
 		case $blocked_ad in
 		Y | y)
-			blocked_ad_info="开启"
+			blocked_ad_info="Turn on"
 			ban_ad=true
 			echo
 			echo
-			echo -e "$yellow 广告拦截 = $cyan开启$none"
+			echo -e "$yellow Ad blocking = $cyan Turn on $none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
 			;;
 		N | n)
-			blocked_ad_info="关闭"
+			blocked_ad_info="Turn off"
 			echo
 			echo
-			echo -e "$yellow 广告拦截 = $cyan关闭$none"
+			echo -e "$yellow Ad blocking = $cyan Turn off $none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -548,8 +548,8 @@ shadowsocks_config() {
 	echo
 
 	while :; do
-		echo -e "是否配置 ${yellow}Shadowsocks${none} [${magenta}Y/N$none]"
-		read -p "$(echo -e "(默认 [${cyan}N$none]):") " install_shadowsocks
+		echo -e "Whether to configure ${yellow}Shadowsocks${none} [${magenta}Y/N$none]"
+		read -p "$(echo -e "(default [${cyan}N$none]):") " install_shadowsocks
 		[[ -z "$install_shadowsocks" ]] && install_shadowsocks="n"
 		if [[ "$install_shadowsocks" == [Yy] ]]; then
 			echo
@@ -569,13 +569,13 @@ shadowsocks_config() {
 shadowsocks_port_config() {
 	local random=$(shuf -i20001-65535 -n1)
 	while :; do
-		echo -e "请输入 "$yellow"Shadowsocks"$none" 端口 ["$magenta"1-65535"$none"]，不能和 "$yellow"V2Ray"$none" 端口相同"
-		read -p "$(echo -e "(默认端口: ${cyan}${random}$none):") " ssport
+		echo -e "Please enter "$yellow"Shadowsocks"$none" Port ["$magenta"1-65535"$none"]，Cannot be the same as the "$yellow"V2Ray"$none" port"
+		read -p "$(echo -e "(Default port: ${cyan}${random}$none):") " ssport
 		[ -z "$ssport" ] && ssport=$random
 		case $ssport in
 		$v2ray_port)
 			echo
-			echo " 不能和 V2Ray 端口一毛一样...."
+			echo " Not the same as the V2Ray port...."
 			error
 			;;
 		[1-9] | [1-9][0-9] | [1-9][0-9][0-9] | [1-9][0-9][0-9][0-9] | [1-5][0-9][0-9][0-9][0-9] | 6[0-4][0-9][0-9][0-9] | 65[0-4][0-9][0-9] | 655[0-3][0-5])
@@ -584,24 +584,24 @@ shadowsocks_port_config() {
 			fi
 			if [[ $tls && $ssport == "80" ]] || [[ $tls && $ssport == "443" ]]; then
 				echo
-				echo -e "由于你已选择了 "$green"WebSocket + TLS $none或$green HTTP/2"$none" 传输协议."
+				echo -e "Since you have selected "$green"WebSocket + TLS $noneor$green HTTP/2"$none" Transfer Protocol."
 				echo
-				echo -e "所以不能选择 "$magenta"80"$none" 或 "$magenta"443"$none" 端口"
+				echo -e "So you cannot choose "$magenta"80"$none" or "$magenta"443"$none" port"
 				error
 			elif [[ $v2ray_dynamic_port_start_input == $ssport || $v2ray_dynamic_port_end_input == $ssport ]]; then
 				local multi_port="${v2ray_dynamic_port_start_input} - ${v2ray_dynamic_port_end_input}"
 				echo
-				echo " 抱歉，此端口和 V2Ray 动态端口 冲突，当前 V2Ray 动态端口范围为：$multi_port"
+				echo " Sorry, this port conflicts with the V2Ray dynamic port. The current V2Ray dynamic port range is：$multi_port"
 				error
 			elif [[ $v2ray_dynamic_port_start_input -lt $ssport && $ssport -le $v2ray_dynamic_port_end_input ]]; then
 				local multi_port="${v2ray_dynamic_port_start_input} - ${v2ray_dynamic_port_end_input}"
 				echo
-				echo " 抱歉，此端口和 V2Ray 动态端口 冲突，当前 V2Ray 动态端口范围为：$multi_port"
+				echo " Sorry, this port conflicts with the V2Ray dynamic port. The current V2Ray dynamic port range is：$multi_port"
 				error
 			else
 				echo
 				echo
-				echo -e "$yellow Shadowsocks 端口 = $cyan$ssport$none"
+				echo -e "$yellow Shadowsocks Port = $cyan$ssport$none"
 				echo "----------------------------------------------------------------"
 				echo
 				break
@@ -619,20 +619,20 @@ shadowsocks_port_config() {
 shadowsocks_password_config() {
 
 	while :; do
-		echo -e "请输入 "$yellow"Shadowsocks"$none" 密码"
-		read -p "$(echo -e "(默认密码: ${cyan}233blog.com$none)"): " sspass
+		echo -e "Please enter the "$yellow"Shadowsocks"$none" password"
+		read -p "$(echo -e "(default password: ${cyan}233blog.com$none)"): " sspass
 		[ -z "$sspass" ] && sspass="233blog.com"
 		case $sspass in
 		*[/$]*)
 			echo
-			echo -e " 由于这个脚本太辣鸡了..所以密码不能包含$red / $none或$red $ $none这两个符号.... "
+			echo -e " Because this script is too spicy...the password cannot contain$red / $none or $red $ $none These two symbols.... "
 			echo
 			error
 			;;
 		*)
 			echo
 			echo
-			echo -e "$yellow Shadowsocks 密码 = $cyan$sspass$none"
+			echo -e "$yellow Shadowsocks password = $cyan$sspass$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -646,21 +646,21 @@ shadowsocks_password_config() {
 shadowsocks_ciphers_config() {
 
 	while :; do
-		echo -e "请选择 "$yellow"Shadowsocks"$none" 加密协议 [${magenta}1-${#ciphers[*]}$none]"
+		echo -e "Please choose "$yellow"Shadowsocks"$none" Encryption protocol [${magenta}1-${#ciphers[*]}$none]"
 		for ((i = 1; i <= ${#ciphers[*]}; i++)); do
 			ciphers_show="${ciphers[$i - 1]}"
 			echo
 			echo -e "$yellow $i. $none${ciphers_show}"
 		done
 		echo
-		read -p "$(echo -e "(默认加密协议: ${cyan}${ciphers[6]}$none)"):" ssciphers_opt
+		read -p "$(echo -e "(defaultEncryption protocol: ${cyan}${ciphers[6]}$none)"):" ssciphers_opt
 		[ -z "$ssciphers_opt" ] && ssciphers_opt=7
 		case $ssciphers_opt in
 		[1-7])
 			ssciphers=${ciphers[$ssciphers_opt - 1]}
 			echo
 			echo
-			echo -e "$yellow Shadowsocks 加密协议 = $cyan${ssciphers}$none"
+			echo -e "$yellow Shadowsocks Encryption protocol = $cyan${ssciphers}$none"
 			echo "----------------------------------------------------------------"
 			echo
 			break
@@ -677,59 +677,59 @@ shadowsocks_ciphers_config() {
 install_info() {
 	clear
 	echo
-	echo " ....准备安装了咯..看看有毛有配置正确了..."
+	echo " ....Ready to install it.. See if you have the correct configuration..."
 	echo
-	echo "---------- 安装信息 -------------"
+	echo "---------- Installation Information -------------"
 	echo
-	echo -e "$yellow V2Ray 传输协议 = $cyan${transport[$v2ray_transport - 1]}$none"
+	echo -e "$yellow V2Ray Transfer Protocol = $cyan${transport[$v2ray_transport - 1]}$none"
 
 	if [[ $v2ray_transport == [45] ]]; then
 		echo
-		echo -e "$yellow V2Ray 端口 = $cyan$v2ray_port$none"
+		echo -e "$yellow V2Ray port = $cyan$v2ray_port$none"
 		echo
-		echo -e "$yellow 你的域名 = $cyan$domain$none"
+		echo -e "$yellow Your domain name = $cyan$domain$none"
 		echo
-		echo -e "$yellow 域名解析 = ${cyan}我确定已经有解析了$none"
+		echo -e "$yellow DNS = ${cyan}I'm sure there is an analysis$none"
 		echo
-		echo -e "$yellow 自动配置 TLS = $cyan$install_caddy_info$none"
+		echo -e "$yellow Configure TLS automatically = $cyan$install_caddy_info$none"
 
 		if [[ $ban_ad ]]; then
 			echo
-			echo -e "$yellow 广告拦截 = $cyan$blocked_ad_info$none"
+			echo -e "$yellow Ad blocking = $cyan$blocked_ad_info$none"
 		fi
 		if [[ $is_path ]]; then
 			echo
-			echo -e "$yellow 路径分流 = ${cyan}/${path}$none"
+			echo -e "$yellow Path diversion = ${cyan}/${path}$none"
 		fi
 	elif [[ $v2ray_transport -ge 18 ]]; then
 		echo
-		echo -e "$yellow V2Ray 端口 = $cyan$v2ray_port$none"
+		echo -e "$yellow V2Ray port = $cyan$v2ray_port$none"
 		echo
-		echo -e "$yellow V2Ray 动态端口范围 = $cyan${v2ray_dynamic_port_start_input} - ${v2ray_dynamic_port_end_input}$none"
+		echo -e "$yellow V2Ray Dynamic port range = $cyan${v2ray_dynamic_port_start_input} - ${v2ray_dynamic_port_end_input}$none"
 
 		if [[ $ban_ad ]]; then
 			echo
-			echo -e "$yellow 广告拦截 = $cyan$blocked_ad_info$none"
+			echo -e "$yellow Ad blocking = $cyan$blocked_ad_info$none"
 		fi
 	else
 		echo
-		echo -e "$yellow V2Ray 端口 = $cyan$v2ray_port$none"
+		echo -e "$yellow V2Ray port = $cyan$v2ray_port$none"
 
 		if [[ $ban_ad ]]; then
 			echo
-			echo -e "$yellow 广告拦截 = $cyan$blocked_ad_info$none"
+			echo -e "$yellow Ad blocking = $cyan$blocked_ad_info$none"
 		fi
 	fi
 	if [ $shadowsocks ]; then
 		echo
-		echo -e "$yellow Shadowsocks 端口 = $cyan$ssport$none"
+		echo -e "$yellow Shadowsocks port = $cyan$ssport$none"
 		echo
-		echo -e "$yellow Shadowsocks 密码 = $cyan$sspass$none"
+		echo -e "$yellow Shadowsocks password = $cyan$sspass$none"
 		echo
-		echo -e "$yellow Shadowsocks 加密协议 = $cyan${ssciphers}$none"
+		echo -e "$yellow Shadowsocks Encryption protocol = $cyan${ssciphers}$none"
 	else
 		echo
-		echo -e "$yellow 是否配置 Shadowsocks = ${cyan}未配置${none}"
+		echo -e "$yellow Whether to configure Shadowsocks = ${cyan}Not configured${none}"
 	fi
 	echo
 	echo "---------- END -------------"
@@ -750,13 +750,13 @@ domain_check() {
 	test_domain=$(curl -sH 'accept: application/dns-json' "https://cloudflare-dns.com/dns-query?name=$domain&type=A" | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}" | head -1)
 	if [[ $test_domain != $ip ]]; then
 		echo
-		echo -e "$red 检测域名解析错误....$none"
+		echo -e "$red Detect DNS errors....$none"
 		echo
-		echo -e " 你的域名: $yellow$domain$none 未解析到: $cyan$ip$none"
+		echo -e " Your domain name: $yellow$domain$none Not resolved to: $cyan$ip$none"
 		echo
-		echo -e " 你的域名当前解析到: $cyan$test_domain$none"
+		echo -e " Your domain name当前解析到: $cyan$test_domain$none"
 		echo
-		echo "备注...如果你的域名是使用 Cloudflare 解析的话..在 Status 那里点一下那图标..让它变灰"
+		echo "Note...If your domain name is resolved by Cloudflare...click the icon in Status...make it gray"
 		echo
 		exit 1
 	fi
@@ -795,9 +795,9 @@ install_v2ray() {
 	if [[ $local_install ]]; then
 		if [[ ! -d $(pwd)/config ]]; then
 			echo
-			echo -e "$red 哎呀呀...安装失败了咯...$none"
+			echo -e "$red Oops... the installation failed...$none"
 			echo
-			echo -e " 请确保你有完整的上传 233v2.com 的 V2Ray 一键安装脚本 & 管理脚本到当前 ${green}$(pwd) $none目录下"
+			echo -e " Please make sure you have a complete upload of 233v2.com's V2Ray one-click installation script & management script to the current  ${green}$(pwd) $none under contents"
 			echo
 			exit 1
 		fi
@@ -812,9 +812,9 @@ install_v2ray() {
 
 	if [[ ! -d /etc/v2ray/233boy/v2ray ]]; then
 		echo
-		echo -e "$red 哎呀呀...克隆脚本仓库出错了...$none"
+		echo -e "$red Oops... something went wrong with the clone script repository...$none"
 		echo
-		echo -e " 温馨提示..... 请尝试自行安装 Git: ${green}$cmd install -y git $none 之后再安装此脚本"
+		echo -e " Reminder... Please try to install Git by yourself: ${green}$cmd install -y git $none and then install this script"
 		echo
 		exit 1
 	fi
@@ -968,18 +968,18 @@ get_ip() {
 	[[ -z $ip ]] && ip=$(curl -s https://api.myip.com | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")
 	[[ -z $ip ]] && ip=$(curl -s icanhazip.com)
 	[[ -z $ip ]] && ip=$(curl -s myip.ipip.net | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")
-	[[ -z $ip ]] && echo -e "\n$red 这垃圾小鸡扔了吧！$none\n" && exit
+	[[ -z $ip ]] && echo -e "\n$red Throw this trash chicken out！$none\n" && exit
 }
 
 error() {
 
-	echo -e "\n$red 输入错误！$none\n"
+	echo -e "\n$red input error！$none\n"
 
 }
 
 pause() {
 
-	read -rsp "$(echo -e "按$green Enter 回车键 $none继续....或按$red Ctrl + C $none取消.")" -d $'\n'
+	read -rsp "$(echo -e "Press $green Enter $none to continue...or press $red Ctrl + C $none to cancel.")" -d $'\n'
 	echo
 }
 do_service() {
@@ -1001,16 +1001,16 @@ show_config_info() {
 install() {
 	if [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f $backup && -d /etc/v2ray/233boy/v2ray ]]; then
 		echo
-		echo " 大佬...你已经安装 V2Ray 啦...无需重新安装"
+		echo " Big guy... you have already installed V2Ray... no need to reinstall"
 		echo
-		echo -e " $yellow输入 ${cyan}v2ray${none} $yellow即可管理 V2Ray${none}"
+		echo -e " $yellow Enter ${cyan}v2ray${none} $yellow to manage V2Ray${none}"
 		echo
 		exit 1
 	elif [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f /etc/v2ray/233blog_v2ray_backup.txt && -d /etc/v2ray/233boy/v2ray ]]; then
 		echo
-		echo "  如果你需要继续安装.. 请先卸载旧版本"
+		echo "  If you need to continue the installation: please uninstall the old version first"
 		echo
-		echo -e " $yellow输入 ${cyan}v2ray uninstall${none} $yellow即可卸载${none}"
+		echo -e " $yellow Enter ${cyan}v2ray uninstall${none} $yellow to uninstall ${none}"
 		echo
 		exit 1
 	fi
@@ -1047,19 +1047,19 @@ uninstall() {
 			_load uninstall.sh
 		else
 			echo
-			echo -e " $yellow输入 ${cyan}v2ray uninstall${none} $yellow即可卸载${none}"
+			echo -e " $yellow Enter ${cyan}v2ray uninstall${none} $yellow to uninstall ${none}"
 			echo
 		fi
 
 	elif [[ -f /usr/bin/v2ray/v2ray && -f /etc/v2ray/config.json ]] && [[ -f /etc/v2ray/233blog_v2ray_backup.txt && -d /etc/v2ray/233boy/v2ray ]]; then
 		echo
-		echo -e " $yellow输入 ${cyan}v2ray uninstall${none} $yellow即可卸载${none}"
+		echo -e " $yellow Enter ${cyan}v2ray uninstall${none} $yellow to uninstall ${none}"
 		echo
 	else
 		echo -e "
-		$red 大胸弟...你貌似毛有安装 V2Ray ....卸载个鸡鸡哦...$none
+		$red Big breasted brother...you seem to have installed V2Ray...uninstall a first...$none
 
-		备注...仅支持卸载使用我 (233v2.com) 提供的 V2Ray 一键安装脚本
+		Note...Only support to uninstall and use the V2Ray one-click installation script provided by me
 		" && exit 1
 	fi
 
@@ -1078,13 +1078,13 @@ local)
 	;;
 *)
 	echo
-	echo -e " 你输入的这个参数 <$red $args $none> ...这个是什么鬼啊...脚本不认识它哇"
+	echo -e " The parameter you entered <$red $args $none> ...What the hell is this... the script doesn't recognize it wow"
 	echo
-	echo -e " 这个辣鸡脚本仅支持输入$green local / online $none参数"
+	echo -e " This spicy chicken script only supports input $green local / online $none parameter"
 	echo
-	echo -e " 输入$yellow local $none即是使用本地安装"
+	echo -e " Enter $yellow local $none That is to use local installation"
 	echo
-	echo -e " 输入$yellow online $none即是使用在线安装 (默认)"
+	echo -e " Enter $yellow online $none Online installation (default)"
 	echo
 	exit 1
 	;;
@@ -1093,21 +1093,21 @@ esac
 clear
 while :; do
 	echo
-	echo "........... V2Ray 一键安装脚本 & 管理脚本 by 233v2.com .........."
+	echo "........... V2Ray One-click installation script & management script by Laintuv .........."
 	echo
-	echo "帮助说明: https://233v2.com/post/1/"
+	echo "Help description: https://233v2.com/post/1/"
 	echo
-	echo "搭建教程: https://233v2.com/post/2/"
+	echo "Build tutorial: https://233v2.com/post/2/"
 	echo
-	echo " 1. 安装"
+	echo " 1. install"
 	echo
-	echo " 2. 卸载"
+	echo " 2. uninstall"
 	echo
 	if [[ $local_install ]]; then
-		echo -e "$yellow 温馨提示.. 本地安装已启用 ..$none"
+		echo -e "$yellow Reminder: Local installation is enabled ..$none"
 		echo
 	fi
-	read -p "$(echo -e "请选择 [${magenta}1-2$none]:")" choose
+	read -p "$(echo -e "Please choose [${magenta}1-2$none]:")" choose
 	case $choose in
 	1)
 		install
