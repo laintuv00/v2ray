@@ -754,7 +754,7 @@ domain_check() {
 		echo
 		echo -e " Your domain name: $yellow$domain$none Not resolved to: $cyan$ip$none"
 		echo
-		echo -e " Your domain name当前解析到: $cyan$test_domain$none"
+		echo -e " Your domain name currently resolves to: $cyan$test_domain$none"
 		echo
 		echo "Note...If your domain name is resolved by Cloudflare...click the icon in Status...make it gray"
 		echo
