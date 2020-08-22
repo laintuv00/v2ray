@@ -1351,7 +1351,7 @@ change_v2ray_dynamicport() {
 		config
 		# clear
 		echo
-		echo -e "$green dynamic port Modify成功啦...你不需要 Modify V2Ray 客户端配置...保持原有的配置即可...$none"
+		echo -e "$green dynamic port Modify success...you do not need to Modify V2Ray client configuration...just keep the original configuration...$none"
 		echo
 	else
 		echo
