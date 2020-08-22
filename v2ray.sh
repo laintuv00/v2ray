@@ -1594,11 +1594,11 @@ change_domain() {
 		done
 	else
 		echo
-		echo -e "$red Sorry...不支持 Modify...$none"
+		echo -e "$red Sorry...editing is not supported...$none"
 		echo
-		echo -e " Note.. Modify TLS domain name仅支持transfer Protocol为 ${yellow}WebSocket + TLS$none  or  ${yellow}HTTP/2$none 并且$yellow Configure TLS automatically =  Turn on  $none"
+		echo -e " Note.. Modify TLS domain name only support transfer Protocol for ${yellow}WebSocket + TLS$none  or  ${yellow}HTTP/2$none or $yellow Configure TLS automatically =  Turn on  $none"
 		echo
-		echo -e " Current transfer Protocol为: ${cyan}${transport[$v2ray_transport - 1]}${none}"
+		echo -e " Current transfer Protocol for: ${cyan}${transport[$v2ray_transport - 1]}${none}"
 		echo
 		if [[ $caddy ]]; then
 			echo -e " Configure TLS automatically = ${cyan} Turn on  $none"
@@ -1662,17 +1662,17 @@ change_path_config() {
 		else
 			echo
 			echo
-			echo " 给Hey点赞....好果断的放弃配置 website camouflage and path diversion"
+			echo " Like the big guy....So decisively abandon the configuration of website disguise and path diversion"
 			echo
 			echo
 		fi
 	else
 		echo
-		echo -e "$red Sorry...不支持 Modify...$none"
+		echo -e "$red Sorry...editing is not supported...$none"
 		echo
-		echo -e " Note.. Modify the diversion path 仅支持transfer Protocol为 ${yellow}WebSocket + TLS$none  or  ${yellow}HTTP/2$none 并且$yellow Configure TLS automatically =  Turn on  $none"
+		echo -e " Note.. Modify the shunt path. Only the transmission protocol is supported ${yellow}WebSocket + TLS$none  or  ${yellow}HTTP/2$none or $yellow Configure TLS automatically =  Turn on  $none"
 		echo
-		echo -e " Current transfer Protocol为: ${cyan}${transport[$v2ray_transport - 1]}${none}"
+		echo -e " Current transfer Protocol for: ${cyan}${transport[$v2ray_transport - 1]}${none}"
 		echo
 		if [[ $caddy ]]; then
 			echo -e " Configure TLS automatically = ${cyan} Turn on  $none"
@@ -1719,9 +1719,9 @@ change_proxy_site_config() {
 		caddy_config
 		echo
 		echo
-		echo " 哎哟...好像 Yes  Modify成功了..."
+		echo " Ouch... it seems that the modification was successful..."
 		echo
-		echo -e " 赶紧 Turn on  your domain name ${cyan}https://${domain}$none 检查一下看看"
+		echo -e " 赶紧 Turn on  your domain name ${cyan}https://${domain}$none and check it out"
 		echo
 		echo
 	elif [[ $v2ray_transport == [45] ]] && [[ $caddy ]]; then
@@ -1739,17 +1739,17 @@ change_proxy_site_config() {
 		else
 			echo
 			echo
-			echo " 给Hey点赞....好果断的放弃配置 website camouflage and path diversion"
+			echo " Like the big guy....So decisively abandon the configuration of website disguise and path diversion"
 			echo
 			echo
 		fi
 	else
 		echo
-		echo -e "$red Sorry...不支持 Modify...$none"
+		echo -e "$red Sorry...editing is not supported...$none"
 		echo
-		echo -e " Note.. Modify  the disguised URL 仅支持transfer Protocol为 ${yellow}WebSocket + TLS$none  or  ${yellow}HTTP/2$none 并且$yellow Configure TLS automatically =  Turn on  $none"
+		echo -e " Note.. Modify the disguised URL  only support transfer Protocol for ${yellow}WebSocket + TLS$none  or  ${yellow}HTTP/2$none or $yellow Configure TLS automatically =  Turn on  $none"
 		echo
-		echo -e " Current transfer Protocol为: ${cyan}${transport[$v2ray_transport - 1]}${none}"
+		echo -e " Current transfer Protocol for: ${cyan}${transport[$v2ray_transport - 1]}${none}"
 		echo
 		if [[ $caddy ]]; then
 			echo -e " Configure TLS automatically = ${cyan} Turn on  $none"
@@ -1768,13 +1768,13 @@ domain_check() {
 	test_domain=$(curl -sH 'accept: application/dns-json' "https://cloudflare-dns.com/dns-query?name=$new_domain&type=A" | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}" | head -1)
 	if [[ $test_domain != $ip ]]; then
 		echo
-		echo -e "$red 检测domain name DNS错误....$none"
+		echo -e "$red Detect DNS errors....$none"
 		echo
-		echo -e " your domain name: $yellow$new_domain$none 未 resolve to: $cyan$ip$none"
+		echo -e " your domain name: $yellow$new_domain$none not resolve to: $cyan$ip$none"
 		echo
-		echo -e " your domain nameCurrent resolve to: $cyan$test_domain$none"
+		echo -e " your domain name current resolve to: $cyan$test_domain$none"
 		echo
-		echo "Note...Ifyour domain name Yes 使用 Cloudflare  DNS的话..在 Status 那里点一下那图标..让它变灰"
+		echo "Note...IIf your domain name is resolved by Cloudflare...click the icon in Status...make it gray"
 		echo
 		exit 1
 	fi
@@ -1814,9 +1814,9 @@ disable_path() {
 		done
 	else
 		echo
-		echo -e "$red Sorry...不支持 Modify...$none"
+		echo -e "$red Sorry...editing is not supported...$none"
 		echo
-		echo -e " Current transfer Protocol为: ${cyan}${transport[$v2ray_transport - 1]}${none}"
+		echo -e " Current transfer Protocol for: ${cyan}${transport[$v2ray_transport - 1]}${none}"
 		echo
 		if [[ $caddy ]]; then
 			echo -e " Configure TLS automatically = ${cyan} Turn on  $none"
@@ -1825,12 +1825,12 @@ disable_path() {
 		fi
 		echo
 		if [[ $is_path ]]; then
-			echo -e " 路径分流 = ${cyan} Turn on  $none"
+			echo -e " Path diversion = ${cyan} Turn on  $none"
 		else
-			echo -e " 路径分流 = $red Off$none"
+			echo -e " Path diversion = $red Off$none"
 		fi
 		echo
-		echo -e " 必须为 WebSocket + TLS  or  HTTP/2 transfer Protocol, Configure TLS automatically = ${cyan} Turn on  $none, 路径分流 = ${cyan} Turn on  $none, 才能 Modify"
+		echo -e " Must be WebSocket + TLS  or  HTTP/2 transfer Protocol, Configure TLS automatically = ${cyan} Turn on  $none, Path diversion = ${cyan} Turn on $none, to modify"
 		echo
 
 	fi
@@ -1848,9 +1848,9 @@ blocked_hosts() {
 		echo
 		echo -e "$yellow 2. $none Off Ad Blocking"
 		echo
-		echo "Note: Ad Blocking Yes 基于 domain name 拦截的..so也许会造成浏览网页的时候出现部分元素留白.. orOther问题"
+		echo "Note: Ad blocking is based on domain name blocking... so it may cause some elements to be blank when browsing the web.. or other problems"
 		echo
-		echo "Feedback question or 请求拦截更多domain name: https://github.com/233boy/v2ray/issues"
+		echo "Feedback or request to block more domains: https://github.com/233boy/v2ray/issues"
 		echo
 		echo -e "CurrentAd Blockingstatus: $_info"
 		echo
@@ -1862,7 +1862,7 @@ blocked_hosts() {
 			1)
 				if [[ $ban_ad ]]; then
 					echo
-					echo -e " 大胸弟...难不成你没有看到 (CurrentAd Blockingstatus: $_info) 这个帅帅的提示么.....还On it"
+					echo -e " Big boss...Is it possible that you didn't see (current ad blocking status: $_info) this handsome reminder... is still on"
 					echo
 				else
 					echo
@@ -1876,7 +1876,7 @@ blocked_hosts() {
 					config
 					echo
 					echo
-					echo -e "$green Ad Blocking is On...If出现异常..那就 Off它咯$none"
+					echo -e "$green Ad blocking is turned on... If something goes wrong... then turn it off $none"
 					echo
 				fi
 				break
@@ -1894,11 +1894,11 @@ blocked_hosts() {
 					config
 					echo
 					echo
-					echo -e "$red Ad Blocking is  Off...不过你也可以随时重新On ...as long as you like$none"
+					echo -e "$red Ad Blocking is Off...But you can always restart ...as long as you like$none"
 					echo
 				else
 					echo
-					echo -e " 大胸弟...难不成你没有看到 (CurrentAd Blockingstatus: $_info) 这个帅帅的提示么.....还 Off it"
+					echo -e " Big boss...Is it possible that you didn't see (current ad blocking status: $_info) this handsome reminder... and turn off is?"
 					echo
 				fi
 				break
