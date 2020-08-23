@@ -2279,8 +2279,6 @@ get_v2ray_vmess_URL_link() {
 	echo
 	echo -e ${cyan}$vmess${none}
 	echo
-	echo -e "${yellow}Avoid being walled.. recommended JMS: ${cyan}https://getjms.com${none}"
-	echo
 	rm -rf /etc/v2ray/vmess_qr.json
 }
 other() {
