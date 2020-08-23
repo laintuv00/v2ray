@@ -18,6 +18,4 @@ if [[ $shadowsocks ]]; then
 	echo
 	echo -e " Prompt: Enter $cyan v2ray ssqr $none to generate Shadowsocks QR code link"	
 	echo
-	echo -e "${yellow}Avoid being walled.. recommended JMS: ${cyan}https://getjms.com${none}"
-	echo
 fi
