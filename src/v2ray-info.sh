@@ -104,17 +104,17 @@ _v2_info() {
 		fi
 	else
 		echo
-		echo -e "$yellow Address) = $cyan${ip}$none"
+		echo -e "$yellow Address = $cyan${ip}$none"
 		echo
-		echo -e "$yellow Port) = $cyan$v2ray_port$none"
+		echo -e "$yellow Port = $cyan$v2ray_port$none"
 		echo
-		echo -e "$yellow User ID / UUID) = $cyan${v2ray_id}$none"
+		echo -e "$yellow User ID / UUID = $cyan${v2ray_id}$none"
 		echo
-		echo -e "$yellow Alter Id) = ${cyan}${alterId}${none}"
+		echo -e "$yellow Alter Id = ${cyan}${alterId}${none}"
 		echo
 		echo -e "$yellow Transfer Protocol (Network) = ${cyan}${net}$none"
 		echo
-		echo -e "$yellow Header type) = ${cyan}${header}$none"
+		echo -e "$yellow Header type = ${cyan}${header}$none"
 		echo
 	fi
 	if [[ $v2ray_transport -ge 18 ]] && [[ $ban_ad ]]; then
@@ -132,7 +132,5 @@ _v2_info() {
 	echo "V2Ray Client tutorial: https://233v2.com/post/4/"
 	echo
 	echo -e "Tip: Enter $cyan v2ray url $none to generate vmess URL link/input $cyan v2ray qr $none to generate QR code link"
-	echo
-	echo -e "${yellow}Avoid being walled... recommended JMS: ${cyan}https://getjms.com${none}"
 	echo
 }
