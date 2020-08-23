@@ -4,11 +4,11 @@ _get_latest_version() {
 
 	if [[ ! $v2ray_latest_ver ]]; then
 		echo
-		echo -e " $red获取 V2Ray 最新版本失败!!!$none"
+		echo -e " $red Get V2Ray   The latest version failed!!!$none"
 		echo
-		echo -e " 请尝试执行如下命令: $green echo 'nameserver 8.8.8.8' >/etc/resolv.conf $none"
+		echo -e " Please try to execute the following command: $green echo 'nameserver 8.8.8.8' >/etc/resolv.conf $none"
 		echo
-		echo " 然后再重新运行脚本...."
+		echo " 	Then re-run the script...."
 		echo
 		exit 1
 	fi
@@ -21,7 +21,7 @@ _download_v2ray_file() {
 
 	if ! wget --no-check-certificate -O "$v2ray_tmp_file" $v2ray_download_link; then
 		echo -e "
-        $red 下载 V2Ray 失败啦..可能是你的 VPS 网络太辣鸡了...请重试...$none
+        $red Failed to download V2Ray...maybe your VPS network is too hot...please try again...$none
         " && exit 1
 	fi
 
@@ -42,18 +42,18 @@ _update_v2ray_version() {
 	_get_latest_version
 	if [[ $v2ray_ver != $v2ray_latest_ver ]]; then
 		echo
-		echo -e " $green 咦...发现新版本耶....正在拼命更新.......$none"
+		echo -e " $green Huh... a new version is found... is desperately updating.......$none"
 		echo
 		_download_v2ray_file
 		do_service restart v2ray
 		echo
-		echo -e " $green 更新成功啦...当前 V2Ray 版本: ${cyan}$v2ray_latest_ver$none"
+		echo -e " $green The update is successful...Current V2Ray version: ${cyan}$v2ray_latest_ver$none"
 		echo
-		echo -e " $yellow 温馨提示: 为了避免出现莫名其妙的问题...V2Ray 客户端的版本最好和服务器的版本保持一致$none"
+		echo -e " $yellow Reminder: In order to avoid inexplicable problems...The version of the V2Ray client should be consistent with the version of the server $none"
 		echo
 	else
 		echo
-		echo -e " $green 木有发现新版本....$none"
+		echo -e " $green No new version found....$none"
 		echo
 	fi
 }
