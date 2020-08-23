@@ -2,22 +2,22 @@
 if [[ $shadowsocks ]]; then
 	local ss="ss://$(echo -n "${ssciphers}:${sspass}@${ip}:${ssport}" | base64 -w 0)#233v2.com_ss_${ip}"
 	echo
-	echo "---------- Shadowsocks 配置信息 -------------"
+	echo "---------- Shadowsocks Configuration information -------------"
 	echo
-	echo -e "$yellow 服务器地址 = $cyan${ip}$none"
+	echo -e "$yellow Server address = $cyan${ip}$none"
 	echo
-	echo -e "$yellow 服务器端口 = $cyan$ssport$none"
+	echo -e "$yellow Server port = $cyan$ssport$none"
 	echo
-	echo -e "$yellow 密码 = $cyan$sspass$none"
+	echo -e "$yellow Password = $cyan$sspass$none"
 	echo
-	echo -e "$yellow 加密协议 = $cyan${ssciphers}$none"
+	echo -e "$yellow Encryption method = $cyan${ssciphers}$none"
 	echo
-	echo -e "$yellow SS 链接 = ${cyan}$ss$none"
+	echo -e "$yellow SS link = ${cyan}$ss$none"
 	echo
-	echo -e " 备注:$red Shadowsocks Win 4.0.6 $none客户端可能无法识别该 SS 链接"
+	echo -e " Note:$red Shadowsocks Win 4.0.6 $none The client may not recognize the SS link "
 	echo
-	echo -e "提示: 输入$cyan v2ray ssqr $none可生成 Shadowsocks 二维码链接"	
+	echo -e " Prompt: Enter $cyan v2ray ssqr $none to generate Shadowsocks QR code link"	
 	echo
-	echo -e "${yellow}免被墙..推荐使用JMS: ${cyan}https://getjms.com${none}"
+	echo -e "${yellow}Avoid being walled.. recommended JMS: ${cyan}https://getjms.com${none}"
 	echo
 fi
