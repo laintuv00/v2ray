@@ -630,9 +630,9 @@ change_v2ray_config() {
 		" Modify UserID ( UUID )"
 		" Modify TLS domain name (if possible)"
 		" Modify the diversion path (if possible)"
-		" Modify  the disguised URL (if possible)"
+		" Modify the disguised URL (if possible)"
 		" Off website camouflage and path diversion (if possible)"
-		"On /  Off Ad Blocking"
+		" On / Off Ad Blocking"
 	)
 	while :; do
 		for ((i = 1; i <= ${#_menu[*]}; i++)); do
@@ -2677,8 +2677,6 @@ menu() {
 		echo
 		echo "Feedback question: https://github.com/233boy/v2ray/issues"
 		echo
-		echo "TG Channel: https://t.me/tg2333"
-		echo
 		echo -e "$yellow  1. $none View V2Ray configuration"
 		echo
 		echo -e "$yellow  2. $none Modify V2Ray configuration"
@@ -2693,13 +2691,13 @@ menu() {
 		echo
 		echo -e "$yellow  7. $none View Socks5 configuration / modify Socks5 configuration"
 		echo
-		echo -e "$yellow  8. $none Start/stop/restart/view log"
+		echo -e "$yellow  8. $none Start / stop / restart / view log"
 		echo
 		echo -e "$yellow  9. $none Update V2Ray / update V2Ray management script"
 		echo
 		echo -e "$yellow 10. $none Uninstall V2Ray"
 		echo
-		echo -e "$yellow 11. $noneOther"
+		echo -e "$yellow 11. $none Other"
 		echo
 		echo -e "Reminder...if you don't want to execute the option...press$yellow Ctrl + C $none to exit"
 		echo
