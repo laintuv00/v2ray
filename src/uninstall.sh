@@ -1,6 +1,6 @@
 while :; do
 	echo
-	read -p "$(echo -e "是否卸载 ${yellow}V2Ray$none [${magenta}Y/N$none]:")" uninstall_v2ray_ask
+	read -p "$(echo -e "Whether to uninstall ${yellow}V2Ray$none [${magenta}Y/N$none]:")" uninstall_v2ray_ask
 	if [[ -z $uninstall_v2ray_ask ]]; then
 		error
 	else
@@ -8,13 +8,13 @@ while :; do
 		Y | y)
 			is_uninstall_v2ray=true
 			echo
-			echo -e "$yellow 卸载 V2Ray = ${cyan}是${none}"
+			echo -e "$yellow Uninstall V2Ray = ${cyan} Yes ${none}"
 			echo
 			break
 			;;
 		N | n)
 			echo
-			echo -e "$red 卸载已取消...$none"
+			echo -e "$red Uninstall canceled...$none"
 			echo
 			break
 			;;
@@ -28,7 +28,7 @@ done
 if [[ $caddy && $is_uninstall_v2ray ]] && [[ -f /usr/local/bin/caddy && -f /etc/caddy/Caddyfile ]]; then
 	while :; do
 		echo
-		read -p "$(echo -e "是否卸载 ${yellow}Caddy$none [${magenta}Y/N$none]:")" uninstall_caddy_ask
+		read -p "$(echo -e "Whether to uninstall ${yellow}Caddy$none [${magenta}Y/N$none]:")" uninstall_caddy_ask
 		if [[ -z $uninstall_caddy_ask ]]; then
 			error
 		else
@@ -36,13 +36,13 @@ if [[ $caddy && $is_uninstall_v2ray ]] && [[ -f /usr/local/bin/caddy && -f /etc/
 			Y | y)
 				is_uninstall_caddy=true
 				echo
-				echo -e "$yellow 卸载 Caddy = ${cyan}是${none}"
+				echo -e "$yellow Uninstall Caddy = ${cyan} Yes ${none}"
 				echo
 				break
 				;;
 			N | n)
 				echo
-				echo -e "$yellow 卸载 Caddy = ${cyan}否${none}"
+				echo -e "$yellow Uninstall Caddy = ${cyan} No ${none}"
 				echo
 				break
 				;;
@@ -110,11 +110,11 @@ if [[ $is_uninstall_v2ray && $is_uninstall_caddy ]]; then
 	fi
 	# clear
 	echo
-	echo -e "$green V2Ray 卸载完成啦 ....$none"
+	echo -e "$green V2Ray Uninstall Complete ....$none"
 	echo
-	echo "如果你觉得这个脚本有哪些地方不够好的话...请告诉我"
+	echo "If you think this script is not good enough...please tell me"
 	echo
-	echo "反馈问题: https://github.com/233boy/v2ray/issues"
+	echo "Feedback question: https://github.com/233boy/v2ray/issues"
 	echo
 
 elif [[ $is_uninstall_v2ray ]]; then
@@ -161,10 +161,10 @@ elif [[ $is_uninstall_v2ray ]]; then
 	fi
 	# clear
 	echo
-	echo -e "$green V2Ray 卸载完成啦 ....$none"
+	echo -e "$green V2Ray Uninstall Complete ....$none"
 	echo
-	echo "如果你觉得这个脚本有哪些地方不够好的话...请告诉我"
+	echo "If you think this script is not good enough...please tell me"
 	echo
-	echo "反馈问题: https://github.com/233boy/v2ray/issues"
+	echo "Feedback question: https://github.com/233boy/v2ray/issues"
 	echo
 fi
