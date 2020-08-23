@@ -73,66 +73,66 @@ _v2_args() {
 _v2_info() {
 	echo
 	echo
-	echo "---------- V2Ray 配置信息 -------------"
+	echo "---------- V2Ray Configuration information -------------"
 	if [[ $v2ray_transport == [45] ]]; then
 		if [[ ! $caddy ]]; then
 			echo
-			echo -e " $red警告！$none$yellow请自行配置 TLS...教程: https://233v2.com/post/3/$none"
+			echo -e " $red Warning！$none$yellow Please configure TLS...tutorial: https://233v2.com/post/3/$none"
 		fi
 		echo
-		echo -e "$yellow 地址 (Address) = $cyan${domain}$none"
+		echo -e "$yellow Address = $cyan${domain}$none"
 		echo
-		echo -e "$yellow 端口 (Port) = ${cyan}443${none}"
+		echo -e "$yellow Port) = ${cyan}443${none}"
 		echo
-		echo -e "$yellow 用户ID (User ID / UUID) = $cyan${v2ray_id}$none"
+		echo -e "$yellow User ID / UUID = $cyan${v2ray_id}$none"
 		echo
-		echo -e "$yellow 额外ID (Alter Id) = ${cyan}${alterId}${none}"
+		echo -e "$yellow Alter Id = ${cyan}${alterId}${none}"
 		echo
-		echo -e "$yellow 传输协议 (Network) = ${cyan}${net}$none"
+		echo -e "$yellow Transfer Protocol (Network) = ${cyan}${net}$none"
 		echo
-		echo -e "$yellow 伪装类型 (header type) = ${cyan}${header}$none"
+		echo -e "$yellow Header type = ${cyan}${header}$none"
 		echo
-		echo -e "$yellow 伪装域名 (host) = ${cyan}${domain}$none"
+		echo -e "$yellow Fake domain name (host) = ${cyan}${domain}$none"
 		echo
-		echo -e "$yellow 路径 (path) = ${cyan}${_path}$none"
+		echo -e "$yellow Path = ${cyan}${_path}$none"
 		echo
-		echo -e "$yellow TLS (Enable TLS) = ${cyan}打开$none"
+		echo -e "$yellow TLS (Enable TLS) = ${cyan} Turn on $none"
 		echo
 		if [[ $ban_ad ]]; then
-			echo " 备注: 广告拦截已开启.."
+			echo " Note: Ad blocking is turned on.."
 			echo
 		fi
 	else
 		echo
-		echo -e "$yellow 地址 (Address) = $cyan${ip}$none"
+		echo -e "$yellow Address) = $cyan${ip}$none"
 		echo
-		echo -e "$yellow 端口 (Port) = $cyan$v2ray_port$none"
+		echo -e "$yellow Port) = $cyan$v2ray_port$none"
 		echo
-		echo -e "$yellow 用户ID (User ID / UUID) = $cyan${v2ray_id}$none"
+		echo -e "$yellow User ID / UUID) = $cyan${v2ray_id}$none"
 		echo
-		echo -e "$yellow 额外ID (Alter Id) = ${cyan}${alterId}${none}"
+		echo -e "$yellow Alter Id) = ${cyan}${alterId}${none}"
 		echo
-		echo -e "$yellow 传输协议 (Network) = ${cyan}${net}$none"
+		echo -e "$yellow Transfer Protocol (Network) = ${cyan}${net}$none"
 		echo
-		echo -e "$yellow 伪装类型 (header type) = ${cyan}${header}$none"
+		echo -e "$yellow Header type) = ${cyan}${header}$none"
 		echo
 	fi
 	if [[ $v2ray_transport -ge 18 ]] && [[ $ban_ad ]]; then
-		echo " 备注: 动态端口已启用...广告拦截已开启..."
+		echo " Note: Dynamic port is enabled...Ad blocking is enabled..."
 		echo
 	elif [[ $v2ray_transport -ge 18 ]]; then
-		echo " 备注: 动态端口已启用..."
+		echo " Note: Dynamic port is enabled..."
 		echo
 	elif [[ $ban_ad ]]; then
-		echo " 备注: 广告拦截已开启.."
+		echo " Note: Ad blocking is turned on.."
 		echo
 	fi
 	echo "---------- END -------------"
 	echo
-	echo "V2Ray 客户端使用教程: https://233v2.com/post/4/"
+	echo "V2Ray Client tutorial: https://233v2.com/post/4/"
 	echo
-	echo -e "提示: 输入$cyan v2ray url $none可生成 vmess URL 链接 / 输入$cyan v2ray qr $none可生成二维码链接"
+	echo -e "Tip: Enter $cyan v2ray url $none to generate vmess URL link/input $cyan v2ray qr $none to generate QR code link"
 	echo
-	echo -e "${yellow}免被墙..推荐使用JMS: ${cyan}https://getjms.com${none}"
+	echo -e "${yellow}Avoid being walled... recommended JMS: ${cyan}https://getjms.com${none}"
 	echo
 }
