@@ -167,11 +167,11 @@ mtproto_port_config() {
 				error
 			elif [[ $shadowsocks && $new_mtproto_port == $ssport ]]; then
 				echo
-				echo -e "Sorry, Sorry, this Port conflicts with Shadowsocks Port...Current Shadowsocks Port: ${cyan}$ssport$none"
+				echo -e "Sorry, this Port conflicts with Shadowsocks Port...Current Shadowsocks Port: ${cyan}$ssport$none"
 				error
 			elif [[ $socks && $new_mtproto_port == $socks_port ]]; then
 				echo
-				echo -e "Sorry, Sorry, this Port conflicts with Socks Port...Current Socks Port: ${cyan}$socks_port$none"
+				echo -e "Sorry, this Port conflicts with Socks Port...Current Socks Port: ${cyan}$socks_port$none"
 				error
 			else
 				echo
