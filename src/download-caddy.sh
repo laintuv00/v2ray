@@ -3,7 +3,7 @@ _download_caddy_file() {
 	caddy_tmp_file="/tmp/install_caddy/caddy.tar.gz"
 	[[ -d $caddy_tmp ]] && rm -rf $caddy_tmp
 	if [[ ! ${caddy_arch} ]]; then
-		echo -e "$red 获取 Caddy 下载参数失败！$none" && exit 1
+		echo -e "$red Failed to get Caddy download parameters！$none" && exit 1
 	fi
 	# local caddy_download_link="https://caddyserver.com/download/linux/${caddy_arch}?license=personal"
 	local caddy_download_link="https://github.com/caddyserver/caddy/releases/download/v1.0.4/caddy_v1.0.4_linux_${caddy_arch}.tar.gz"
@@ -11,7 +11,7 @@ _download_caddy_file() {
 	mkdir -p $caddy_tmp
 
 	if ! wget --no-check-certificate -O "$caddy_tmp_file" $caddy_download_link; then
-		echo -e "$red 下载 Caddy 失败！$none" && exit 1
+		echo -e "$red Download Caddy failed！$none" && exit 1
 	fi
 
 	tar zxf $caddy_tmp_file -C $caddy_tmp
@@ -20,7 +20,7 @@ _download_caddy_file() {
 	# wget -qO- https://getcaddy.com | bash -s personal
 
 	if [[ ! -f /usr/local/bin/caddy ]]; then
-		echo -e "$red 安装 Caddy 出错！$none" && exit 1
+		echo -e "$red Error installing Caddy！$none" && exit 1
 	fi
 }
 _install_caddy_service() {
@@ -29,7 +29,7 @@ _install_caddy_service() {
 	if [[ $systemd ]]; then
 		cp -f ${caddy_tmp}init/linux-systemd/caddy.service /lib/systemd/system/
 		# if ! wget https://raw.githubusercontent.com/caddyserver/caddy/master/dist/init/linux-systemd/caddy.service -O /lib/systemd/system/caddy.service; then
-		# 	echo -e "$red 下载 caddy.service 失败！$none" && exit 1
+		# 	echo -e "$red Download caddy.service failure！$none" && exit 1
 		# fi
 		# sed -i "s/-log-timestamps=false//g" /lib/systemd/system/caddy.service
 		if [[ ! $(grep "ReadWriteDirectories" /lib/systemd/system/caddy.service) ]]; then
